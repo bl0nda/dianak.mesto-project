@@ -154,20 +154,6 @@ function App() {
           Да
         </button>
       </PopupWithForm>
-
-      <template className="cards">
-        <div className="cards__element">
-          <img src="#" alt="" className="cards__image" />
-          <div className="cards__description">
-            <h2 className="cards__title"></h2>
-            <div className="cards__like-container">
-              <button type="button" className="cards__like"></button>
-              <p className="cards__like-counter">0</p>
-            </div>
-          </div>
-          <button type="button" className="cards__delete"></button>
-        </div>
-      </template>
     </div>
   );
 }
