@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import avatar from "../images/avatar.jpg";
 import api from "../utils/api.js";
-
+import Card from "./Card.js";
 
 function Main(props) {
   const [userName, setUserName] = useState("Жак Ив-Кусто");
@@ -12,16 +12,21 @@ function Main(props) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getProfileData().then((res) => {
-      console.log(res);
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
-    });
-    api.getInitialCards().then((res) => {
-      console.log(res);
-      setCards(res);
-    });
+    api
+      .getProfileData()
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+      .catch((err) => console.log(err));
+    api
+      .getInitialCards()
+      .then((res) => {
+        console.log(res);
+        setCards(res);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -54,21 +59,9 @@ function Main(props) {
         ></button>
       </section>
       <div className="cards-container">
-        {cards.map((cards) => {
-          return (
-            <div className="cards__element">
-              <div className="cards__image" style={{ backgroundImage: `url($cards.link})` }}></div>
-              <div className="cards__description">
-                <h2 className="cards__title">{cards.name}</h2>
-                <div className="cards__like-container">
-                  <button type="button" className="cards__like"></button>
-                  <p className="cards__like-counter"></p>
-                </div>
-              </div>
-              <button type="button" className="cards__delete"></button>
-            </div>
-          );
-        })}
+        {cards.map((card) => (
+          <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+        ))}
       </div>
     </main>
   );
