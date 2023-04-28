@@ -54,6 +54,7 @@ function App() {
         name="profile-info"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
       >
         <label className="popup__field-container">
           <input
@@ -81,19 +82,13 @@ function App() {
           />
           <span className="popup__field-error change-job-error"></span>
         </label>
-        <button
-          type="submit"
-          className="popup__submit-button popup__submit-button_type_profile-info"
-          disabled
-        >
-          Сохранить
-        </button>
       </PopupWithForm>
       <PopupWithForm
         title="Новое место"
         name="add-card"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Создать"
       >
         <label className="popup__field-container">
           <input
@@ -119,18 +114,13 @@ function App() {
           />
           <span className="popup__field-error change-image-error"></span>
         </label>
-        <button
-          type="submit"
-          className="popup__submit-button popup__submit-button_type_card"
-        >
-          Создать
-        </button>
       </PopupWithForm>
       <PopupWithForm
         title="Обновить аватар"
         name="change-avatar"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
       >
         <label className="popup__field-container">
           <input
@@ -143,24 +133,13 @@ function App() {
           />
           <span className="popup__field-error change-avatar-error"></span>
         </label>
-        <button
-          type="submit"
-          className="popup__submit-button popup__submit-button_type_change-avatar"
-          disabled
-        >
-          Сохранить
-        </button>
       </PopupWithForm>
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-      <PopupWithForm title="Вы уверены?" name="confirm-delete">
-        <button
-          type="submit"
-          className="popup__submit-button popup__submit-button_type_confirm"
-          onClose={closeAllPopups}
-        >
-          Да
-        </button>
-      </PopupWithForm>
+      <PopupWithForm
+        title="Вы уверены?"
+        name="confirm-delete"
+        buttonText="Да"
+      ></PopupWithForm>
     </div>
   );
 }
