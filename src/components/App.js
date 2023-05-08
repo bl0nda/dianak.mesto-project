@@ -45,12 +45,13 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    api.setProfileData(data)
-    .then((res) => {
-    setCurrentUser(res);
-    closeAllPopups();
-  })
-    .catch((err) => console.log(err));
+    api
+      .setProfileData(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleAddPlaceClick() {
@@ -59,6 +60,16 @@ function App() {
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleUpdateAvatar(avatar) {
+    api
+      .setNewAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   }
 
   function closeAllPopups() {
@@ -135,7 +146,11 @@ function App() {
             <span className="popup__field-error change-image-error"></span>
           </label>
         </PopupWithForm>
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <PopupWithForm
           title="Вы уверены?"
