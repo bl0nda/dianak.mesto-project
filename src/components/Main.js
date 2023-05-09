@@ -5,7 +5,7 @@ import Card from "./Card.js";
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
 
-   return (
+  return (
     <main className="main">
       <section className="profile">
         <button
@@ -36,7 +36,13 @@ function Main(props) {
       </section>
       <div className="cards-container">
         {props.cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={props.onCardClick} onCardLike={props.onCardLike} />
+          <Card
+            key={card._id}
+            card={card}
+            onCardClick={props.onCardClick}
+            onCardLike={props.onCardLike}
+            onCardDelete={props.onCardDelete}
+          />
         ))}
       </div>
     </main>

@@ -6,6 +6,7 @@ import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup.js";
 import ImagePopup from "./ImagePopup.js";
 import api from "../utils/api.js";
 import avatar from "../images/avatar.jpg";
@@ -93,7 +94,24 @@ function App() {
     });
   }
 
-  function handleCardDelete(card) {}
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((state) =>
+        state.filter(function (i) {
+          return i._id !== card._id;
+        })
+      );
+    });
+  }
+
+  function handleAddPlaceSubmit(data) {
+    api
+      .pushNewCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="page">
@@ -106,6 +124,7 @@ function App() {
           onClose={closeAllPopups}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
           cards={cards}
         />
         <Footer />
@@ -114,38 +133,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
-        <PopupWithForm
-          title="Новое место"
-          name="add-card"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-          buttonText="Создать"
-        >
-          <label className="popup__field-container">
-            <input
-              type="text"
-              minLength="2"
-              maxLength="30"
-              name="title"
-              id="change-cards-name"
-              className="popup__field popup__field_change_cards-name"
-              placeholder="Название"
-              required
-            />
-            <span className="popup__field-error change-cards-name-error"></span>
-          </label>
-          <label className="popup__field-container">
-            <input
-              type="url"
-              name="link"
-              id="change-image"
-              className="popup__field popup__field_change_image"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span className="popup__field-error change-image-error"></span>
-          </label>
-        </PopupWithForm>
+          onAddPlace={handleAddPlaceSubmit}
+        />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
