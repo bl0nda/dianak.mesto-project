@@ -19,6 +19,7 @@ function AddPlacePopup(props) {
       title,
       link,
     });
+    props.onClose();
   }
 
   return (
